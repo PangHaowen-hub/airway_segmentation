@@ -1,3 +1,5 @@
 *.gz
 *.npy
 *.npz
+*.mcs
+example_data/
