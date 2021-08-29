@@ -12,7 +12,7 @@ def get_listdir(path):  # 获取目录下所有gz格式文件的地址，返回�
     return tmp_list
 
 
-def delete_label(mask_path):
+def extract_mask(mask_path):
     mask_sitk_img = sitk.ReadImage(mask_path)
     mask_img_arr = sitk.GetArrayFromImage(mask_sitk_img)
     mask_img_arr[mask_img_arr != 1943] = 0
@@ -27,5 +27,5 @@ def delete_label(mask_path):
 if __name__ == '__main__':
     mask_path = r'D:\github_code\Airway-master\example_data\my_data\temp'
     mask = get_listdir(mask_path)
-    for i in range(len(mask)):
-        delete_label(mask[i])
+    for i in mask:
+        extract_mask(i)
