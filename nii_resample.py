@@ -12,11 +12,10 @@ def get_listdir(path):  # 获取目录下所有gz格式文件的地址，返回�
     return tmp_list
 
 
-def delete_label(mask_path):
+def resample(mask_path):
     mask_sitk_img = sitk.ReadImage(mask_path)
     img_shape = mask_sitk_img.GetSize()
     img_spacing = mask_sitk_img.GetSpacing()
-
     # 设置一个Filter
     resample = sitk.ResampleImageFilter()
     # 设置插值方式
@@ -24,25 +23,22 @@ def delete_label(mask_path):
 
     # 默认像素值
     resample.SetDefaultPixelValue(0)
-
     newspacing = [0.8, 0.8, 0.8]
     resample.SetOutputSpacing(newspacing)
-
     resample.SetOutputOrigin(mask_sitk_img.GetOrigin())
-
     resample.SetOutputDirection(mask_sitk_img.GetDirection())
-
     new_size = np.asarray(img_shape) * np.asarray(img_spacing) / np.asarray(newspacing)
     new_size = new_size.astype(int).tolist()
     resample.SetSize(new_size)
-
     new = resample.Execute(mask_sitk_img)
-    sitk.WriteImage(new, r'D:\github_code\Airway-master\example_data\my_data\lobe_mask_resample.nii.gz')
+    save_path = mask_path[:-7] + '_resample.nii.gz'
+    sitk.WriteImage(new, save_path)
+    return save_path
 
 
 if __name__ == '__main__':
-    mask_path = r'D:\github_code\Airway-master\example_data\my_data\lobe_mask.nii.gz'
-    delete_label(mask_path)
+    mask_path = r'new_model.nii.gz'
+    resample(mask_path)
 
 
 
