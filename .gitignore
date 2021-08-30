@@ -3,3 +3,4 @@
 *.npz
 *.mcs
 example_data/
+*.dcm
