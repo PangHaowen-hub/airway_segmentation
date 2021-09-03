@@ -12,7 +12,7 @@ def get_listdir(path):  # 获取目录下所有gz格式文件的地址，返回�
     return tmp_list
 
 
-def resample(mask_path):
+def resample(mask_path, path):
     mask_sitk_img = sitk.ReadImage(mask_path)
     img_shape = mask_sitk_img.GetSize()
     img_spacing = mask_sitk_img.GetSpacing()
@@ -31,14 +31,8 @@ def resample(mask_path):
     new_size = new_size.astype(int).tolist()
     resample.SetSize(new_size)
     new = resample.Execute(mask_sitk_img)
-    save_path = mask_path[:-7] + '_resample.nii.gz'
-    sitk.WriteImage(new, save_path)
-    return save_path
-
-
-if __name__ == '__main__':
-    mask_path = r'new_model.nii.gz'
-    resample(mask_path)
+    _, fullflname = os.path.split(mask_path)
+    sitk.WriteImage(new, os.path.join(path, fullflname))
 
 
 

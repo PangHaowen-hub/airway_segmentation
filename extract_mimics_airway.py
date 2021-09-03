@@ -25,7 +25,7 @@ def extract_mask(mask_path):
 
 
 if __name__ == '__main__':
-    mask_path = r'D:\github_code\Airway-master\example_data\my_data\temp'
+    mask_path = r'D:\my_code\airway_segmentation\1111111\temp'
     mask = get_listdir(mask_path)
     for i in mask:
         extract_mask(i)

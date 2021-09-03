@@ -18,6 +18,6 @@ def dcm_nii(ct_path, save_path):
 
 if __name__ == '__main__':
     # 原始数据，不能有中文
-    ctdir = r'D:\my_code\airway_segmentation\1234567\airway_dcm'
-    save_path = r'D:\my_code\airway_segmentation\1234567\airway_dcm.nii.gz'
+    ctdir = r'D:\my_code\airway_segmentation\1111111\airway'
+    save_path = r'D:\my_code\airway_segmentation\1111111\airway.nii.gz'
     dcm_nii(ctdir, save_path)

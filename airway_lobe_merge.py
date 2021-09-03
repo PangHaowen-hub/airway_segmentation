@@ -13,8 +13,8 @@ def get_listdir(path):
 
 
 def add_label(mask1, mask2, path):
-    mask_sitk_img1 = sitk.ReadImage(mask1)
-    mask_sitk_img2 = sitk.ReadImage(mask2)
+    mask_sitk_img1 = sitk.ReadImage(mask1)  # lobe
+    mask_sitk_img2 = sitk.ReadImage(mask2)  # airway
 
     mask_img_arr1 = sitk.GetArrayFromImage(mask_sitk_img1)
     mask_img_arr2 = sitk.GetArrayFromImage(mask_sitk_img2)
@@ -32,7 +32,8 @@ def add_label(mask1, mask2, path):
     new_mask_img.SetDirection(mask_sitk_img1.GetDirection())
     new_mask_img.SetOrigin(mask_sitk_img1.GetOrigin())
     new_mask_img.SetSpacing(mask_sitk_img1.GetSpacing())
-    sitk.WriteImage(new_mask_img, path)
+    _, fullflname = os.path.split(mask1)
+    sitk.WriteImage(new_mask_img, os.path.join(path, fullflname))
 
 
 if __name__ == '__main__':

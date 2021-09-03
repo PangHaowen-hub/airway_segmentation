@@ -3,7 +3,7 @@ import numpy as np
 import os
 
 
-def resize_image_itk(ori_img, target_img, save_path, resamplemethod=sitk.sitkNearestNeighbor):
+def resize_image_itk(ori_img_path, target_img, save_path, resamplemethod=sitk.sitkNearestNeighbor):
     """
     用itk方法将原始图像resample到与目标图像一致
     :param ori_img: 原始需要对齐的itk图像
@@ -11,7 +11,7 @@ def resize_image_itk(ori_img, target_img, save_path, resamplemethod=sitk.sitkNea
     :param resamplemethod: itk插值方法: sitk.sitkLinear-线性  sitk.sitkNearestNeighbor-最近邻
     :return:img_res_itk: 重采样好的itk图像
     """
-    ori_img = sitk.ReadImage(ori_img)
+    ori_img = sitk.ReadImage(ori_img_path)
     target_img = sitk.ReadImage(target_img)
     target_Size = target_img.GetSize()  # 目标图像大小  [x,y,z]
     target_Spacing = target_img.GetSpacing()  # 目标的体素块尺寸    [x,y,z]
@@ -34,7 +34,8 @@ def resize_image_itk(ori_img, target_img, save_path, resamplemethod=sitk.sitkNea
     resampler.SetTransform(sitk.Transform(3, sitk.sitkIdentity))
     resampler.SetInterpolator(resamplemethod)
     itk_img_resampled = resampler.Execute(ori_img)  # 得到重新采样后的图像
-    sitk.WriteImage(itk_img_resampled, save_path)
+    _, fullflname = os.path.split(ori_img_path)
+    sitk.WriteImage(itk_img_resampled, os.path.join(save_path, fullflname))
 
 
 if __name__ == '__main__':
