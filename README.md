@@ -20,7 +20,7 @@ step 2：Airway分割肺段支气管
 step 3：运行restore_img.py
 
 
-## 也使用mimics提取气道树
+## 使用mimics提取气道树
 step 1：使用mimics提取气道树，并导出为dicom
 
 step 2：运行dcm2nii.py将dicom转为nii
